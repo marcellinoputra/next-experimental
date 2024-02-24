@@ -1,6 +1,10 @@
 import {
-  faAddressCard, faBell, faFileLines, faStar,
-} from '@fortawesome/free-regular-svg-icons'
+  faAddressCard,
+  faBell,
+  faFileLines,
+  faMap,
+  faStar,
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faBug,
   faCalculator,
@@ -13,34 +17,56 @@ import {
   faPencil,
   faPuzzlePiece,
   faRightToBracket,
-} from '@fortawesome/free-solid-svg-icons'
-import React, { PropsWithChildren } from 'react'
-import { Badge } from 'react-bootstrap'
-import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup'
-import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
+} from '@fortawesome/free-solid-svg-icons';
+import React, { PropsWithChildren } from 'react';
+import { Badge } from 'react-bootstrap';
+import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup';
+import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem';
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
-  const { children } = props
+  const { children } = props;
 
   return (
-    <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">{children}</li>
-  )
-}
+    <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">
+      {children}
+    </li>
+  );
+};
 
 export default function SidebarNav() {
   return (
     <ul className="list-unstyled">
       <SidebarNavItem icon={faGauge} href="/">
         Dashboard
-        <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
+        <small className="ms-auto">
+          <Badge bg="info" className="ms-auto">
+            NEW
+          </Badge>
+        </small>
       </SidebarNavItem>
       <SidebarNavItem icon={faCode} href="/pokemons">
         Sample
-        <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
+        <small className="ms-auto">
+          <Badge bg="danger" className="ms-auto">
+            DEMO
+          </Badge>
+        </small>
+      </SidebarNavItem>
+      <SidebarNavItem icon={faMap} href="/map">
+        Map
+        <small className="ms-auto">
+          <Badge bg="danger" className="ms-auto">
+            BETA
+          </Badge>
+        </small>
       </SidebarNavItem>
       <SidebarNavTitle>Theme</SidebarNavTitle>
-      <SidebarNavItem icon={faDroplet} href="#">Colors</SidebarNavItem>
-      <SidebarNavItem icon={faPencil} href="#">Typography</SidebarNavItem>
+      <SidebarNavItem icon={faDroplet} href="#">
+        Colors
+      </SidebarNavItem>
+      <SidebarNavItem icon={faPencil} href="#">
+        Typography
+      </SidebarNavItem>
       <SidebarNavTitle>Components</SidebarNavTitle>
 
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
@@ -67,7 +93,9 @@ export default function SidebarNav() {
         <SidebarNavItem href="#">Dropdowns</SidebarNavItem>
       </SidebarNavGroup>
 
-      <SidebarNavItem icon={faChartPie} href="#">Charts</SidebarNavItem>
+      <SidebarNavItem icon={faChartPie} href="#">
+        Charts
+      </SidebarNavItem>
 
       <SidebarNavGroup toggleIcon={faFileLines} toggleText="Forms">
         <SidebarNavItem href="#">Form Control</SidebarNavItem>
@@ -95,20 +123,34 @@ export default function SidebarNav() {
 
       <SidebarNavItem icon={faCalculator} href="#">
         Widgets
-        <small className="ms-auto"><Badge bg="info">NEW</Badge></small>
+        <small className="ms-auto">
+          <Badge bg="info">NEW</Badge>
+        </small>
       </SidebarNavItem>
 
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
       <SidebarNavGroup toggleIcon={faStar} toggleText="Pages">
-        <SidebarNavItem icon={faRightToBracket} href="login">Login</SidebarNavItem>
-        <SidebarNavItem icon={faAddressCard} href="register">Register</SidebarNavItem>
-        <SidebarNavItem icon={faBug} href="#">Error 404</SidebarNavItem>
-        <SidebarNavItem icon={faBug} href="#">Error 500</SidebarNavItem>
+        <SidebarNavItem icon={faRightToBracket} href="login">
+          Login
+        </SidebarNavItem>
+        <SidebarNavItem icon={faAddressCard} href="register">
+          Register
+        </SidebarNavItem>
+        <SidebarNavItem icon={faBug} href="#">
+          Error 404
+        </SidebarNavItem>
+        <SidebarNavItem icon={faBug} href="#">
+          Error 500
+        </SidebarNavItem>
       </SidebarNavGroup>
 
-      <SidebarNavItem icon={faFileLines} href="#">Docs</SidebarNavItem>
-      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">Try CoreUI PRO</SidebarNavItem>
+      <SidebarNavItem icon={faFileLines} href="#">
+        Docs
+      </SidebarNavItem>
+      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">
+        Try CoreUI PRO
+      </SidebarNavItem>
     </ul>
-  )
+  );
 }
