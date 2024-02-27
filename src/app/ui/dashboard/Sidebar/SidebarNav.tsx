@@ -2,6 +2,7 @@ import {
   faAddressCard,
   faBell,
   faFileLines,
+  faFolder,
   faMap,
   faStar,
 } from '@fortawesome/free-regular-svg-icons';
@@ -55,12 +56,20 @@ export default function SidebarNav() {
       <SidebarNavItem icon={faMap} href="/map">
         Map
         <small className="ms-auto">
-          <Badge bg="danger" className="ms-auto">
-            BETA
+          <Badge bg="info" className="ms-auto">
+            NEW
           </Badge>
         </small>
       </SidebarNavItem>
-      <SidebarNavTitle>Theme</SidebarNavTitle>
+      <SidebarNavItem icon={faFolder} href="/anime">
+        Anime
+        <small className="ms-auto">
+          <Badge bg="info" className="ms-auto">
+            NEW
+          </Badge>
+        </small>
+      </SidebarNavItem>
+      {/* <SidebarNavTitle>Theme</SidebarNavTitle>
       <SidebarNavItem icon={faDroplet} href="#">
         Colors
       </SidebarNavItem>
@@ -150,7 +159,7 @@ export default function SidebarNav() {
       </SidebarNavItem>
       <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">
         Try CoreUI PRO
-      </SidebarNavItem>
+      </SidebarNavItem> */}
     </ul>
   );
 }
