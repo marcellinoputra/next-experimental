@@ -15,6 +15,7 @@ import {
   faGauge,
   faLayerGroup,
   faLocationArrow,
+  faPallet,
   faPencil,
   faPuzzlePiece,
   faRightToBracket,
@@ -56,13 +57,21 @@ export default function SidebarNav() {
       <SidebarNavItem icon={faMap} href="/map">
         Map
         <small className="ms-auto">
+          <Badge bg="danger" className="ms-auto">
+            DEMO
+          </Badge>
+        </small>
+      </SidebarNavItem>
+      <SidebarNavItem icon={faFolder} href="/anime">
+        Japan
+        <small className="ms-auto">
           <Badge bg="info" className="ms-auto">
             NEW
           </Badge>
         </small>
       </SidebarNavItem>
-      <SidebarNavItem icon={faFolder} href="/anime">
-        Anime
+      <SidebarNavItem icon={faFolder} href="/art">
+        Art
         <small className="ms-auto">
           <Badge bg="info" className="ms-auto">
             NEW
