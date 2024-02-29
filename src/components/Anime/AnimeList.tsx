@@ -18,6 +18,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AnimeList() {
   const [dataAnime, setDataAnime] = useState<Datum[]>([]);
@@ -40,7 +42,16 @@ export default function AnimeList() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err, {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: 'dark',
+        });
       });
   }
 
@@ -52,6 +63,7 @@ export default function AnimeList() {
 
   return (
     <>
+      <ToastContainer />
       <Box>
         <Typography
           sx={{

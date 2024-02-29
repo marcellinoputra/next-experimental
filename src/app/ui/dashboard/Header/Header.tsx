@@ -1,10 +1,10 @@
-import Link from 'next/link'
-import { Container } from 'react-bootstrap'
-import HeaderSidebarToggler from '@/app/ui/dashboard/Header/HeaderSidebarToggler'
-import HeaderFeaturedNav from '@/app/ui/dashboard/Header/HeaderFeaturedNav'
-import HeaderNotificationNav from '@/app/ui/dashboard/Header/HeaderNotificationNav'
-import HeaderProfileNav from '@/app/ui/dashboard/Header/HeaderProfileNav'
-import Breadcrumb from '@/app/ui/dashboard/Breadcrumb/Breadcrumb'
+import Link from 'next/link';
+import { Container } from 'react-bootstrap';
+import HeaderSidebarToggler from '@/app/ui/dashboard/Header/HeaderSidebarToggler';
+import HeaderFeaturedNav from '@/app/ui/dashboard/Header/HeaderFeaturedNav';
+import HeaderNotificationNav from '@/app/ui/dashboard/Header/HeaderNotificationNav';
+import HeaderProfileNav from '@/app/ui/dashboard/Header/HeaderProfileNav';
+import Breadcrumb from '@/app/ui/dashboard/Breadcrumb/Breadcrumb';
 
 export default function Header() {
   return (
@@ -27,10 +27,10 @@ export default function Header() {
           <HeaderProfileNav />
         </div>
       </Container>
-      <div className="header-divider border-top my-2 mx-sm-n2" />
-      <Container fluid>
-        <Breadcrumb />
-      </Container>
+      {/* <div className="header-divider border-top my-2 mx-sm-n2" />
+        <Container fluid>
+          <Breadcrumb />
+        </Container> */}
     </header>
-  )
+  );
 }
