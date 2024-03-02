@@ -17,7 +17,6 @@ import {
   Skeleton,
 } from '@mui/material';
 import axios from 'axios';
-import { Metadata } from 'next';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,7 +30,7 @@ export default function AnimeList() {
     setIsOpenDetail(false);
   }
 
-  //FETCH API ETC
+  // FETCH API ETC
   async function getDataAnime() {
     setDataAnime([]);
 
@@ -56,7 +55,9 @@ export default function AnimeList() {
       });
   }
 
-  let dataDetail = dataAnime.find((obj) => Number(obj.id) === Number(detailId));
+  const dataDetail = dataAnime.find(
+    (obj) => Number(obj.id) === Number(detailId)
+  );
 
   useEffect(() => {
     getDataAnime();
@@ -95,126 +96,122 @@ export default function AnimeList() {
                 <TableRowsLoader rowsNum={10} />
               ) : (
                 <>
-                  {dataAnime.map((data) => {
-                    return (
-                      <TableRow
-                        key={data.id}
-                        sx={{
-                          '&:last-child td, &:last-child th': {
-                            border: 0,
-                          },
-                        }}
-                      >
-                        <TableCell component="th" scope="data">
-                          {data.attributes.titles.en === undefined || null ? (
-                            <Typography fontWeight="bold">
-                              No English Titles
-                            </Typography>
-                          ) : (
-                            data.attributes.titles.en
-                          )}
-                        </TableCell>
-                        <TableCell align="left">
-                          {data.attributes.titles.en_jp === undefined ||
-                          null ? (
-                            <Typography>No English Japan Titles</Typography>
-                          ) : (
-                            data.attributes.titles.en_jp
-                          )}
-                        </TableCell>
-                        <TableCell align="left">
-                          {data.attributes.titles.ja_jp === undefined ||
-                          null ? (
-                            <Typography>No Japan Title</Typography>
-                          ) : (
-                            data.attributes.titles.ja_jp
-                          )}
-                        </TableCell>
-                        <TableCell align="left">
-                          {data.attributes.ageRatingGuide}
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
-                            sx={{
-                              height: 45,
-                              backgroundColor: 'blue',
-                              color: 'white',
-                              fontWeight: 'bold',
-                              borderColor: 'transparent',
-                              borderRadius: 20,
-                              marginTop: 2,
-                              '&:hover': {
-                                backgroundColor: 'darkblue',
-                              },
-                            }}
-                            onClick={() => {
-                              setDetailId(Number(data.id));
-                              setIsOpenDetail(true);
-                            }}
-                          >
-                            Detail
-                          </Button>
-                          <Drawer
-                            anchor="right"
-                            open={isOpenDetail}
-                            onClose={closeDetail}
-                            PaperProps={{
-                              sx: {
-                                backgroundColor: 'white',
-                                boxShadow: 'none',
-                              },
-                            }}
-                            BackdropProps={{
-                              invisible: true,
-                            }}
-                          >
-                            <Box sx={{ width: '300px', margin: 10 }}>
-                              <Typography>
-                                Detail for ID:{' '}
-                                <Box component="span" fontWeight="bold">
-                                  {detailId}
-                                </Box>
-                              </Typography>
-                              <Divider />
-                              <Typography>
-                                Title:{' '}
-                                <Box component="span" fontWeight="bold">
-                                  {dataDetail?.attributes.titles.en}
-                                </Box>
-                              </Typography>
-
-                              <Divider />
-                              <Typography>
-                                Title Japan:{' '}
-                                <Box component="span" fontWeight="bold">
-                                  {dataDetail?.attributes.titles.ja_jp}
-                                </Box>
-                              </Typography>
-                              <Divider />
-                              <Typography>Description: </Typography>
+                  {dataAnime.map((data) => (
+                    <TableRow
+                      key={data.id}
+                      sx={{
+                        '&:last-child td, &:last-child th': {
+                          border: 0,
+                        },
+                      }}
+                    >
+                      <TableCell component="th" scope="data">
+                        {data.attributes.titles.en === undefined || null ? (
+                          <Typography fontWeight="bold">
+                            No English Titles
+                          </Typography>
+                        ) : (
+                          data.attributes.titles.en
+                        )}
+                      </TableCell>
+                      <TableCell align="left">
+                        {data.attributes.titles.en_jp === undefined || null ? (
+                          <Typography>No English Japan Titles</Typography>
+                        ) : (
+                          data.attributes.titles.en_jp
+                        )}
+                      </TableCell>
+                      <TableCell align="left">
+                        {data.attributes.titles.ja_jp === undefined || null ? (
+                          <Typography>No Japan Title</Typography>
+                        ) : (
+                          data.attributes.titles.ja_jp
+                        )}
+                      </TableCell>
+                      <TableCell align="left">
+                        {data.attributes.ageRatingGuide}
+                      </TableCell>
+                      <TableCell align="left">
+                        <Button
+                          sx={{
+                            height: 45,
+                            backgroundColor: 'blue',
+                            color: 'white',
+                            fontWeight: 'bold',
+                            borderColor: 'transparent',
+                            borderRadius: 20,
+                            marginTop: 2,
+                            '&:hover': {
+                              backgroundColor: 'darkblue',
+                            },
+                          }}
+                          onClick={() => {
+                            setDetailId(Number(data.id));
+                            setIsOpenDetail(true);
+                          }}
+                        >
+                          Detail
+                        </Button>
+                        <Drawer
+                          anchor="right"
+                          open={isOpenDetail}
+                          onClose={closeDetail}
+                          PaperProps={{
+                            sx: {
+                              backgroundColor: 'white',
+                              boxShadow: 'none',
+                            },
+                          }}
+                          BackdropProps={{
+                            invisible: true,
+                          }}
+                        >
+                          <Box sx={{ width: '300px', margin: 10 }}>
+                            <Typography>
+                              Detail for ID:{' '}
                               <Box component="span" fontWeight="bold">
-                                {dataDetail?.attributes.description}
+                                {detailId}
                               </Box>
-                              <Divider />
-                              <Typography>
-                                Start Date:{' '}
-                                <Box component="span" fontWeight="bold">
-                                  {dataDetail?.attributes.startDate}
-                                </Box>
-                              </Typography>
-                              <Divider />
-                              <Typography>
-                                End Date:{' '}
-                                <Box component="span" fontWeight="bold">
-                                  {dataDetail?.attributes.endDate}
-                                </Box>
-                              </Typography>
+                            </Typography>
+                            <Divider />
+                            <Typography>
+                              Title:{' '}
+                              <Box component="span" fontWeight="bold">
+                                {dataDetail?.attributes.titles.en}
+                              </Box>
+                            </Typography>
+
+                            <Divider />
+                            <Typography>
+                              Title Japan:{' '}
+                              <Box component="span" fontWeight="bold">
+                                {dataDetail?.attributes.titles.ja_jp}
+                              </Box>
+                            </Typography>
+                            <Divider />
+                            <Typography>Description: </Typography>
+                            <Box component="span" fontWeight="bold">
+                              {dataDetail?.attributes.description}
                             </Box>
-                          </Drawer>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                            <Divider />
+                            <Typography>
+                              Start Date:{' '}
+                              <Box component="span" fontWeight="bold">
+                                {dataDetail?.attributes.startDate}
+                              </Box>
+                            </Typography>
+                            <Divider />
+                            <Typography>
+                              End Date:{' '}
+                              <Box component="span" fontWeight="bold">
+                                {dataDetail?.attributes.endDate}
+                              </Box>
+                            </Typography>
+                          </Box>
+                        </Drawer>
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </>
               )}
             </TableBody>
@@ -225,8 +222,8 @@ export default function AnimeList() {
   );
 }
 
-const TableRowsLoader = ({ rowsNum }: { rowsNum: number }) => {
-  return [...Array(rowsNum)].map((row, index) => (
+const TableRowsLoader = ({ rowsNum }: { rowsNum: number }) =>
+  [...Array(rowsNum)].map((row, index) => (
     <TableRow key={index}>
       <TableCell component="th" scope="row">
         <Skeleton animation="wave" variant="text" />
@@ -242,4 +239,3 @@ const TableRowsLoader = ({ rowsNum }: { rowsNum: number }) => {
       </TableCell>
     </TableRow>
   ));
-};

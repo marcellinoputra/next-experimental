@@ -1,14 +1,14 @@
 'use client';
 
 import { Datum } from '@/dao/classic-art';
+import { Nightlife } from '@mui/icons-material';
 import {
   Box,
   Button,
   Divider,
-  Drawer,
+  // Drawer,
+  Modal,
   Paper,
-  Snackbar,
-  SnackbarOrigin,
   Table,
   TableBody,
   TableCell,
@@ -18,9 +18,24 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 'auto',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 'none',
+  p: 4,
+  height: '100%',
+  overflow: 'scroll',
+};
 
 export default function ClassicArts() {
   const [dataArt, setDataArt] = useState<Datum[]>([]);
@@ -31,9 +46,9 @@ export default function ClassicArts() {
     setIsOpenDetail(false);
   }
 
-  //FETCH API
+  // FETCH API
   async function getClassicArt() {
-    setDataArt([]);
+    // setDataArt([]);
 
     await axios
       .get('https://api.artic.edu/api/v1/artworks')
@@ -48,7 +63,7 @@ export default function ClassicArts() {
           autoClose: 2000,
           hideProgressBar: true,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: false,
           progress: undefined,
           theme: 'dark',
@@ -58,6 +73,18 @@ export default function ClassicArts() {
 
   let artDetail = dataArt.find((obj) => Number(obj.id) === Number(detailId));
 
+  if (artDetail === null || undefined) {
+    return (
+      <>
+        <Typography fontWeight="bold">Art Detail No Found</Typography>
+      </>
+    );
+  }
+
+  const artDescription = artDetail?.description;
+
+  const artReplace = artDescription?.replace(/<\/?[^>]+>/gi, '');
+
   useEffect(() => {
     getClassicArt();
   }, []);
@@ -65,7 +92,9 @@ export default function ClassicArts() {
   return (
     <>
       <ToastContainer />
-      <Typography>Classic Art Database</Typography>
+      <Typography sx={{ textAlign: 'center', marginBottom: '20px' }}>
+        Classic Art Database
+      </Typography>
       <Divider />
       <TableContainer component={Paper}>
         <Table
@@ -93,14 +122,14 @@ export default function ClassicArts() {
                   }}
                 >
                   <TableCell component="th" scope="data">
-                    {data.title === undefined || null ? (
+                    {data.title === null ? (
                       <Typography>No Title Name</Typography>
                     ) : (
                       data.title
                     )}
                   </TableCell>
                   <TableCell align="left">
-                    {data.artist_title === undefined || null ? (
+                    {data.artist_title === null ? (
                       <Typography>No Artist Name</Typography>
                     ) : (
                       data.artist_title
@@ -127,55 +156,73 @@ export default function ClassicArts() {
                     >
                       Detail
                     </Button>
-                    <Drawer
-                      anchor="right"
+                    <Modal
                       open={isOpenDetail}
                       onClose={closeDetail}
-                      PaperProps={{
-                        sx: {
-                          backgroundColor: 'white',
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                      sx={{
+                        '& .MuiBackdrop-root': {
+                          backgroundColor: 'transparent',
                           boxShadow: 'none',
                         },
                       }}
-                      BackdropProps={{
-                        invisible: true,
-                      }}
                     >
-                      <Box sx={{ width: '300px', margin: 10 }}>
-                        <Typography>
-                          Detail Art For ID:
+                      <Box sx={style}>
+                        <Box>
+                          <Image
+                            src={`https://www.artic.edu/iiif/2/${artDetail?.image_id}/full/843,/0/default.jpg`}
+                            alt={`${artDetail?.thumbnail.alt_text}`}
+                            width={300}
+                            height={300}
+                            style={{
+                              display: 'block',
+                              marginLeft: 'auto',
+                              marginRight: 'auto',
+                              marginBottom: '10px',
+                              // width: '50%',
+                            }}
+                          />
+                          <Typography>
+                            Art No:
+                            <Box component="span" fontWeight="bold">
+                              {detailId}
+                            </Box>
+                          </Typography>
+                          <Divider />
+                          <Typography>
+                            Title:{' '}
+                            <Box component="span" fontWeight="bold">
+                              {artDetail?.title}
+                            </Box>
+                          </Typography>
+                          <Divider />
+                          <Typography>
+                            Artist:{' '}
+                            <Box component="span" fontWeight="bold">
+                              {artDetail?.artist_title === null ? (
+                                <Typography fontWeight="bold">
+                                  The artist of this art has no name
+                                </Typography>
+                              ) : (
+                                artDetail?.artist_title
+                              )}
+                            </Box>
+                          </Typography>
+                          <Divider />
+                          <Typography>Description: </Typography>
                           <Box component="span" fontWeight="bold">
-                            {detailId}
+                            {artReplace === undefined || null ? (
+                              <Typography fontWeight="bold">
+                                No Description
+                              </Typography>
+                            ) : (
+                              artReplace
+                            )}
                           </Box>
-                        </Typography>
-                        <Divider />
-                        <Typography>
-                          Title:{' '}
-                          <Box component="span" fontWeight="bold">
-                            {artDetail?.title}
-                          </Box>
-                        </Typography>
-                        <Divider />
-                        <Typography>
-                          Artist:{' '}
-                          <Box component="span" fontWeight="bold">
-                            {artDetail?.artist_title}
-                          </Box>
-                        </Typography>
-                        <Divider />
-                        <Typography>
-                          Description:{' '}
-                          <Box component="span" fontWeight="bold">
-                            {/* {artDetail?.description} */}
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: artDetail?.description,
-                              }}
-                            />
-                          </Box>
-                        </Typography>
+                        </Box>
                       </Box>
-                    </Drawer>
+                    </Modal>
                   </TableCell>
                 </TableRow>
               );
