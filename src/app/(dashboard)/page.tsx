@@ -39,6 +39,12 @@ import IncomeChart from '@/components/Dashboard/IncomeChart'
 import ConversionChart from '@/components/Dashboard/ConversionChart'
 import SessionChart from '@/components/Dashboard/SessionChart'
 import TrafficChart from '@/components/Dashboard/TrafficChart'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Dashboard"
+}
 
 export default function Page() {
   return (
