@@ -1,0 +1,106 @@
+{
+  "status": 200,
+  "data": [
+      {
+          "id": 1,
+          "jakarta": 50,
+          "depok": 40,
+          "bali": 30,
+          "padang": 60,
+          "bandung": 45,
+          "month": "January",
+          "year": 2020
+      },
+      {
+          "id": 2,
+          "jakarta": 55,
+          "depok": 42,
+          "bali": 32,
+          "padang": 62,
+          "bandung": 47,
+          "month": "February",
+          "year": 2020
+      },
+      {
+          "id": 3,
+          "jakarta": 60,
+          "depok": 45,
+          "bali": 35,
+          "padang": 65,
+          "bandung": 50,
+          "month": "March",
+          "year": 2020
+      },
+      {
+          "id": 4,
+          "jakarta": 65,
+          "depok": 48,
+          "bali": 38,
+          "padang": 68,
+          "bandung": 55,
+          "month": "April",
+          "year": 2020
+      },
+      {
+          "id": 5,
+          "jakarta": 70,
+          "depok": 50,
+          "bali": 40,
+          "padang": 70,
+          "bandung": 60,
+          "month": "May",
+          "year": 2020
+      },
+      {
+          "id": 6,
+          "jakarta": 75,
+          "depok": 52,
+          "bali": 42,
+          "padang": 72,
+          "bandung": 65,
+          "month": "January",
+          "year": 2021
+      },
+      {
+          "id": 7,
+          "jakarta": 80,
+          "depok": 55,
+          "bali": 45,
+          "padang": 75,
+          "bandung": 70,
+          "month": "February",
+          "year": 2021
+      },
+      {
+          "id": 8,
+          "jakarta": 85,
+          "depok": 58,
+          "bali": 48,
+          "padang": 78,
+          "bandung": 75,
+          "month": "March",
+          "year": 2021
+      },
+      {
+          "id": 9,
+          "jakarta": 90,
+          "depok": 60,
+          "bali": 50,
+          "padang": 80,
+          "bandung": 80,
+          "month": "April",
+          "year": 2021
+      },
+      {
+          "id": 10,
+          "jakarta": 95,
+          "depok": 62,
+          "bali": 52,
+          "padang": 82,
+          "bandung": 85,
+          "month": "May",
+          "year": 2021
+      }
+  ],
+  "message" : "Successfully Get Data Sales"
+}

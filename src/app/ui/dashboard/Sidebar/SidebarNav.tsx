@@ -11,6 +11,7 @@ import {
   faCalculator,
   faChartPie,
   faCode,
+  faDollarSign,
   faDroplet,
   faGauge,
   faLayerGroup,
@@ -72,6 +73,14 @@ export default function SidebarNav() {
       </SidebarNavItem>
       <SidebarNavItem icon={faFolder} href="/art">
         Art
+        <small className="ms-auto">
+          <Badge bg="info" className="ms-auto">
+            NEW
+          </Badge>
+        </small>
+      </SidebarNavItem>
+      <SidebarNavItem icon={faDollarSign} href="/sales">
+        Sales
         <small className="ms-auto">
           <Badge bg="info" className="ms-auto">
             NEW
