@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { Datum } from '@/dao/anime';
+import { Datum } from "@/dao/anime";
+import { useJapan } from "@/store/japan-store";
 import {
   Button,
   Paper,
@@ -15,44 +16,21 @@ import {
   Drawer,
   Box,
   Skeleton,
-} from '@mui/material';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+} from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AnimeList() {
   const [dataAnime, setDataAnime] = useState<Datum[]>([]);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [detailId, setDetailId] = useState(0);
 
+  const anime = useJapan((state) => state);
+
   function closeDetail() {
     setIsOpenDetail(false);
-  }
-
-  // FETCH API ETC
-  async function getDataAnime() {
-    setDataAnime([]);
-
-    await axios
-      .get('https://kitsu.io/api/edge/anime')
-      .then((result) => {
-        if (result.status === 200) {
-          setDataAnime(result.data.data);
-        }
-      })
-      .catch((err) => {
-        toast.error(err, {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-          theme: 'dark',
-        });
-      });
   }
 
   const dataDetail = dataAnime.find(
@@ -60,7 +38,7 @@ export default function AnimeList() {
   );
 
   useEffect(() => {
-    getDataAnime();
+    anime.getAnimeList();
   }, []);
 
   return (
@@ -69,7 +47,7 @@ export default function AnimeList() {
       <Box>
         <Typography
           sx={{
-            marginBottom: '10px',
+            marginBottom: "10px",
           }}
         >
           ANIME DATABASE
@@ -100,7 +78,7 @@ export default function AnimeList() {
                     <TableRow
                       key={data.id}
                       sx={{
-                        '&:last-child td, &:last-child th': {
+                        "&:last-child td, &:last-child th": {
                           border: 0,
                         },
                       }}
@@ -135,14 +113,14 @@ export default function AnimeList() {
                         <Button
                           sx={{
                             height: 45,
-                            backgroundColor: 'blue',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            borderColor: 'transparent',
+                            backgroundColor: "blue",
+                            color: "white",
+                            fontWeight: "bold",
+                            borderColor: "transparent",
                             borderRadius: 20,
                             marginTop: 2,
-                            '&:hover': {
-                              backgroundColor: 'darkblue',
+                            "&:hover": {
+                              backgroundColor: "darkblue",
                             },
                           }}
                           onClick={() => {
@@ -158,24 +136,24 @@ export default function AnimeList() {
                           onClose={closeDetail}
                           PaperProps={{
                             sx: {
-                              backgroundColor: 'white',
-                              boxShadow: 'none',
+                              backgroundColor: "white",
+                              boxShadow: "none",
                             },
                           }}
                           BackdropProps={{
                             invisible: true,
                           }}
                         >
-                          <Box sx={{ width: '300px', margin: 10 }}>
+                          <Box sx={{ width: "300px", margin: 10 }}>
                             <Typography>
-                              Detail for ID:{' '}
+                              Detail for ID:{" "}
                               <Box component="span" fontWeight="bold">
                                 {detailId}
                               </Box>
                             </Typography>
                             <Divider />
                             <Typography>
-                              Title:{' '}
+                              Title:{" "}
                               <Box component="span" fontWeight="bold">
                                 {dataDetail?.attributes.titles.en}
                               </Box>
@@ -183,7 +161,7 @@ export default function AnimeList() {
 
                             <Divider />
                             <Typography>
-                              Title Japan:{' '}
+                              Title Japan:{" "}
                               <Box component="span" fontWeight="bold">
                                 {dataDetail?.attributes.titles.ja_jp}
                               </Box>
@@ -195,14 +173,14 @@ export default function AnimeList() {
                             </Box>
                             <Divider />
                             <Typography>
-                              Start Date:{' '}
+                              Start Date:{" "}
                               <Box component="span" fontWeight="bold">
                                 {dataDetail?.attributes.startDate}
                               </Box>
                             </Typography>
                             <Divider />
                             <Typography>
-                              End Date:{' '}
+                              End Date:{" "}
                               <Box component="span" fontWeight="bold">
                                 {dataDetail?.attributes.endDate}
                               </Box>

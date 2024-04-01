@@ -1,6 +1,12 @@
-import { Col, Row } from 'react-bootstrap'
-import Link from 'next/link'
-import LoginForm from '@/app/(authentication)/login/login'
+import { Col, Row } from "react-bootstrap";
+import Link from "next/link";
+import LoginForm from "@/app/(authentication)/login/login";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login Page",
+  description: "Login Page",
+};
 
 export default function Page() {
   return (
@@ -22,10 +28,13 @@ export default function Page() {
             <div className="text-center">
               <h2>Sign up</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
-              <Link className="btn btn-lg btn-outline-light mt-3" href="/register">
+              <Link
+                className="btn btn-lg btn-outline-light mt-3"
+                href="/register"
+              >
                 Register Now!
               </Link>
             </div>
@@ -33,5 +42,5 @@ export default function Page() {
         </Row>
       </Col>
     </Row>
-  )
+  );
 }

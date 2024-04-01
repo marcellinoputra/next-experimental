@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Chart as Chartjs,
@@ -7,11 +7,11 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
-import { Bar } from 'react-chartjs-2';
-import SalesData from '@/dummy/sales.json';
-import React, { useState } from 'react';
+import { Bar } from "react-chartjs-2";
+import SalesData from "@/dummy/sales.json";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -23,37 +23,42 @@ import {
   Select,
   SelectChangeEvent,
   Typography,
-} from '@mui/material';
-import { months } from '@/utils/randomDate';
-import { LocationModels } from '@/models/location';
+} from "@mui/material";
+import { months } from "@/utils/randomDate";
+import { LocationModels } from "@/models/location";
 
 Chartjs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export function SalesChart() {
-  const [location, setLocation] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState(0);
+  const [firstYear, setFirstYear] = useState(0);
+  const [firstMonth, setFirstMonth] = useState("");
+  const [secondYear, setSecondYear] = useState(0);
+  const [secondMonth, setSecondMonth] = useState("");
 
   const dataDummy = SalesData.data;
   const dataCabang = SalesData.cabang;
 
-  function handleChangeLocation(e: SelectChangeEvent) {
-    setLocation(e.target.value as string);
+  function handleChangeFirstMonth(e: SelectChangeEvent) {
+    setFirstMonth(e.target.value as string);
   }
 
-  function handleChangeMonth(e: SelectChangeEvent) {
-    setMonth(e.target.value as string);
+  function handleChangeSecondMonth(e: SelectChangeEvent) {
+    setSecondMonth(e.target.value as string);
   }
 
-  function handleChangeYear(e: SelectChangeEvent) {
-    setYear(Number(e.target.value));
+  function handleChangeFirstYear(e: SelectChangeEvent) {
+    setFirstYear(Number(e.target.value));
+  }
+
+  function handleChangeSecondYear(e: SelectChangeEvent) {
+    setSecondYear(Number(e.target.value));
   }
 
   const dataSales2022 = dataDummy.find(
-    (obj) => obj.month === String(month) && obj.year === Number(year)
+    (obj) => obj.month === String(firstMonth) && obj.year === Number(firstYear)
   );
   const dataSales2023 = dataDummy.find(
-    (obj) => obj.month === 'January' && obj.year === 2023
+    (obj) => obj.month === String(secondMonth) && obj.year === 2023
   );
 
   const label = dataCabang.find((obj) => obj);
@@ -62,7 +67,7 @@ export function SalesChart() {
     <>
       <button
         onClick={() => {
-          console.log(location);
+          console.log(dataSales2022?.depok);
         }}
       >
         Check Data
@@ -73,7 +78,7 @@ export function SalesChart() {
           <Typography variant="h5">Sales</Typography>
           <Typography
             sx={{
-              color: 'black',
+              color: "black",
             }}
           >
             Comparison Sales Between January 2022 and January 2023
@@ -81,17 +86,17 @@ export function SalesChart() {
           <Box
             sx={{
               width: 100,
-              float: 'right',
+              float: "right",
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Location</InputLabel>
+              <InputLabel id="demo-simple-select-label">Month</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={location}
+                value={firstMonth}
                 label="Location"
-                onChange={handleChangeLocation}
+                onChange={(e) => setFirstMonth(e.target.value as string)}
               >
                 {LocationModels.map((data) => {
                   return (
@@ -103,10 +108,11 @@ export function SalesChart() {
               </Select>
             </FormControl>
           </Box>
-          {/* <Box
+
+          <Box
             sx={{
               width: 100,
-              float: 'right',
+              float: "right",
             }}
           >
             <FormControl fullWidth>
@@ -114,34 +120,9 @@ export function SalesChart() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={Number(year)}
-                label="Year"
-                onChange={handleChangeLocation}
-              >
-                {LocationModels.map((data) => {
-                  return (
-                    <MenuItem key={data} value={data}>
-                      {data}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Box> */}
-          <Box
-            sx={{
-              width: 100,
-              float: 'right',
-            }}
-          >
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Month</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={month}
+                value={firstYear}
                 label="Month"
-                onChange={handleChangeLocation}
+                onChange={(e) => setFirstYear(Number(e.target.value))}
               >
                 {LocationModels.map((data) => {
                   return (
@@ -158,30 +139,30 @@ export function SalesChart() {
               labels: months({ count: 5 }),
               datasets: [
                 {
-                  label: label?.cabang_1 + ' ' + '2022',
-                  backgroundColor: 'orange',
-                  borderColor: 'black',
+                  label: label?.cabang_1 + " " + "2022",
+                  backgroundColor: "orange",
+                  borderColor: "black",
                   borderWidth: 2,
                   data: [dataSales2022?.jakarta],
                 },
                 {
-                  label: label?.cabang_1 + ' ' + '2023',
-                  backgroundColor: 'yellow',
-                  borderColor: 'black',
+                  label: label?.cabang_1 + " " + "2023",
+                  backgroundColor: "yellow",
+                  borderColor: "black",
                   borderWidth: 2,
                   data: [dataSales2023?.jakarta],
                 },
                 {
                   label: label?.cabang_2,
-                  backgroundColor: 'red',
-                  borderColor: 'black',
+                  backgroundColor: "red",
+                  borderColor: "black",
                   borderWidth: 2,
                   data: [dataSales2022?.depok],
                 },
                 {
                   label: label?.cabang_2,
-                  backgroundColor: 'white',
-                  borderColor: 'black',
+                  backgroundColor: "white",
+                  borderColor: "black",
                   borderWidth: 2,
                   data: [dataSales2023?.depok],
                 },
@@ -206,8 +187,8 @@ export function SalesChart() {
         <CardContent>
           <Typography
             sx={{
-              color: 'black',
-              textAlign: 'center',
+              color: "black",
+              textAlign: "center",
             }}
             variant="h5"
           >
@@ -215,12 +196,12 @@ export function SalesChart() {
           </Typography>
           <Bar
             data={{
-              labels: ['Accumulation'],
+              labels: ["Accumulation"],
               datasets: [
                 {
-                  label: 'Jakarta',
-                  backgroundColor: 'orange',
-                  borderColor: 'black',
+                  label: "Jakarta",
+                  backgroundColor: "orange",
+                  borderColor: "black",
                   borderWidth: 1,
                   data: [
                     Number(dataSales2023?.jakarta) -
@@ -228,9 +209,9 @@ export function SalesChart() {
                   ],
                 },
                 {
-                  label: 'Depok',
-                  backgroundColor: 'yellow',
-                  borderColor: 'black',
+                  label: "Depok",
+                  backgroundColor: "yellow",
+                  borderColor: "black",
                   borderWidth: 1,
                   data: [
                     Number(dataSales2023?.depok) - Number(dataSales2022?.depok),
@@ -238,17 +219,17 @@ export function SalesChart() {
                 },
                 {
                   label: `Bali`,
-                  backgroundColor: 'blue',
-                  borderColor: 'black',
+                  backgroundColor: "blue",
+                  borderColor: "black",
                   borderWidth: 1,
                   data: [
                     Number(dataSales2023?.bali) - Number(dataSales2022?.bali),
                   ],
                 },
                 {
-                  label: 'Padang',
-                  backgroundColor: 'red',
-                  borderColor: 'black',
+                  label: "Padang",
+                  backgroundColor: "red",
+                  borderColor: "black",
                   borderWidth: 1,
                   data: [
                     Number(dataSales2023?.padang) -
@@ -256,9 +237,9 @@ export function SalesChart() {
                   ],
                 },
                 {
-                  label: 'Bandung',
-                  backgroundColor: 'white',
-                  borderColor: 'black',
+                  label: "Bandung",
+                  backgroundColor: "white",
+                  borderColor: "black",
                   borderWidth: 1,
                   data: [
                     Number(dataSales2023?.bandung) -
